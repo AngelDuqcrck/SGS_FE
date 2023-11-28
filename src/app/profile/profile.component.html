@@ -1,0 +1,63 @@
+
+<!-- General container  -->
+<section class="flex flex-col gap-4 md:flex-row">
+
+<!--  Logout and permissions box -->
+
+  <div class="border p-4 flex-1 shadow-2xl rounded-md">
+    <section class="mb-10">
+      <div class="flex flex-column flex-wrap justify-center gap-6 md:flex-row md:justify-normal" >
+        <div class="bg-gray-200 rounded-md border h-[150px] w-[150px]">
+          <img src="assets/no-user.png" [alt]="user().firstName" class="w-full h-full">
+        </div>
+        <div class="flex gap-4 flex-1">
+          <div class="flex-1">
+            <strong class="block">{{user().firstName +' '+user().lastName}}</strong>
+            <p >{{user().email}}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- form -->
+    <section class="w-full px-4"  >
+
+      <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <!--   Names   -->
+        <div class="flex flex-wrap justify-center sm:flex-nowrap gap-4 w-full mb-8">
+
+          <span class="p-float-label inline-block w-full " >
+            <input formControlName="firstName" pInputText  id="firstName" class="w-full py-2 px-4 {{ userForm.get('firstName')?.valid ? 'border-green-500' : 'border-red-500' }}"  />
+            <label htmlFor="username">First Name</label>
+          </span>
+
+          <span class="p-float-label inline-block w-full">
+            <input formControlName="lastName" pInputText id="lastName" class="w-full py-2 px-4"/>
+            <label htmlFor="username">Last Name</label>
+          </span>
+
+        </div>
+
+        <div class="flex flex-col gap-6">
+          <span class="p-float-label inline-block w-full">
+            <input formControlName="email" pInputText id="email" class="w-full py-2 px-4" type="email"/>
+            <label htmlFor="username">email</label>
+          </span>
+
+          <span class="p-float-label inline-block w-full ">
+            <p-dropdown formControlName="rol" [options]="[{role: user().rol!.substring('role_'.length)}]" placeholder="Rol" optionLabel="role" inputId="float-label" [styleClass]=" 'w-full' "></p-dropdown>
+            <label htmlFor="float-label">Current rol (read-only)</label>
+          </span>
+
+          <div  class="ml-auto">
+            <button type="submit" class="bg-cyan-800 text-white py-2 px-4 rounded-md" pButton>Save</button>
+          </div>
+        </div>
+
+      </form>
+    </section>
+  </div>
+
+  <p-toast position="top-left" />
+
+</section>
