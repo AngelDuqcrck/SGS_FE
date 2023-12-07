@@ -1,0 +1,53 @@
+<header class="bg-white shadow flex justify-between items-center p-4 rounded-md mb-6">
+  <h2 class="text-2xl" > Información de la Solicitud </h2>
+</header>
+
+
+<section class="flex flex-wrap gap-4">
+
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-md">
+    <h2 class="text-xl font-medium mb-4">
+      {{selectedRequest()?.title}}
+    </h2>
+
+    <div class="space-y-2">
+
+      <div>
+        <span class="text-gray-500">Descripción:</span>
+        <div class="bg-gray-100 shadow rounded-md p-4">{{selectedRequest()?.description}}</div>
+      </div>
+
+      <div>
+        <span class="text-gray-500">Fecha de la solicitud: </span>
+        <span class="font-semibold">{{ selectedRequest()?.requestDate | date }}</span>
+      </div>
+
+      <div>
+        <span class="text-gray-500">Estado actual: </span>
+        <span class="font-semibold">{{status}}</span>
+      </div>
+
+  </div>
+
+
+  </div>
+
+  <div class="bg-white p-8 rounded-lg shadow-lg max-w-md flex-1">
+    <h2 class="text-xl font-medium mb-4">
+      Historial de estados
+    </h2>
+
+    <p-timeline [value]="selectedRequest()?.statusChanges!" align="alternate">
+      <ng-template pTemplate="marker" let-event>
+            <span class="custom-marker shadow-2 bg-blue-600 rounded-full text-white w-5 h-5 align-middle" >
+            </span>
+      </ng-template>
+      <ng-template pTemplate="content" let-event>
+        <small class="p-text-secondary">{{ event.changeDate | date }}</small>
+      </ng-template>
+      <ng-template pTemplate="opposite" let-event>
+        {{ getStatusHistory(event) }}
+      </ng-template>
+    </p-timeline>
+  </div>
+</section>
