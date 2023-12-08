@@ -27,7 +27,8 @@
         <td class="text-center">{{ request.title }}</td>
         <td class="text-center">{{ request.requestDate | date  }}</td>
         <td class="flex items-center justify-center gap-3">
-          <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700">
+          <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+                  (click)="openSendDialogBox(request)">
             Enviar
             <i class="pi pi-send"></i>
           </button>
@@ -35,7 +36,8 @@
                   (click)="showRequestInfo(request)">
             <i class="pi pi-eye"></i>
           </button>
-          <button class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700">
+          <button class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700"
+                  (click)="openDeleteDialogBox(request)">
             <i class="pi pi-trash"></i>
           </button>
           <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700">
@@ -48,7 +50,45 @@
 
   </p-table>
 
+  <p-dialog header="Eliminar petición"
+            [(visible)]="openDeleteDialog"
+            [modal]="true"
+            [style]="{ width: '50vw' }"
+            [draggable]="false"
+            [resizable]="false"
+            (onHide)="onCloseDialog()"
+  >
+    <p class="m-0">
+      ¿Estas seguro que desea eliminar la petición? Esta acción no se puede deshacer.
+    </p>
+    <ng-template pTemplate="footer">
+      <button class="bg-green-500 ml-auto flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+              (click)="deleteRequest()">
+        <i class="pi pi-check"></i>
+        Aceptar
+      </button>
+    </ng-template>
+  </p-dialog>
 
+  <p-dialog header="Enviar petición"
+            [(visible)]="openSendDialog"
+            [modal]="true"
+            [style]="{ width: '50vw' }"
+            [draggable]="false"
+            [resizable]="false"
+            (onHide)="onCloseDialog()"
+  >
+    <p class="m-0">
+      ¿Estas seguro que desea enviar la petición? Esta acción no se puede deshacer.
+    </p>
+    <ng-template pTemplate="footer">
+      <button class="bg-green-500 ml-auto flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+              (click)="sendRequest()">
+        <i class="pi pi-check"></i>
+        Enviar
+      </button>
+    </ng-template>
+  </p-dialog>
 
 
 </section>

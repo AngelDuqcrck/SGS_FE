@@ -33,4 +33,12 @@ export class RequestService {
     return this.http.get<RequestDTO[]>(`http://localhost:8080/requests/user?userId=${this.currentUser.currentUserValue.id}`)
   }
 
+  deleteRequest() {
+    return this.http.delete(`http://localhost:8080/requests/delete?requestId=${this._requestSelected.value?.id}`)
+  }
+
+  sendRequest() {
+    return this.http.post(`http://localhost:8080/requests/send?requestId=${this._requestSelected.value?.id}`, {})
+  }
+
 }
