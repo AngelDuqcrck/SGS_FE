@@ -1,6 +1,7 @@
 <header class="bg-white shadow flex justify-between items-center p-4 rounded-md mb-6">
   <h2 class="text-2xl" > Solicitudes</h2>
-  <button class="bg-blue-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700">
+  <button class="bg-blue-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700"
+          (click)="openAddDialogBox()">
     <i class="pi pi-plus-circle"></i>
     Nuevo
   </button>
@@ -90,5 +91,34 @@
     </ng-template>
   </p-dialog>
 
+  <p-dialog header="Enviar petición"
+            [(visible)]="openAddDialogForm"
+            [modal]="true"
+            [style]="{ width: '75vw' }"
+            [draggable]="false"
+            [resizable]="false"
+            (onHide)="onCloseDialog()"
+  >
+
+    <form [formGroup]="requestForm" (ngSubmit)="submit()">
+
+      <div class="grid grid-cols-2 gap-4">
+          <div class="col-span-2">
+            <label for="title">Titulo</label>
+            <input type="text" id="title" formControlName="title" class="w-full rounded-md border-gray-300 shadow-md border p-2" pInputText>
+          </div>
+          <div class="col-span-2">
+            <label for="description">Descripción</label>
+            <textarea id="description" formControlName="description" class="w-full rounded-md border-gray-300 shadow-md border resize-none p-4" pInputTextarea ></textarea>
+          </div>
+      </div>
+      <button type="submit" class="bg-green-500 ml-auto flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700 mt-4"
+              >
+        <i class="pi pi-check"></i>
+        Enviar
+      </button>
+    </form>
+
+  </p-dialog>
 
 </section>

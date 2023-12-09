@@ -41,4 +41,8 @@ export class RequestService {
     return this.http.post(`http://localhost:8080/requests/send?requestId=${this._requestSelected.value?.id}`, {})
   }
 
+  createRequest(request: any) {
+    return this.http.post<RequestFullDTO>(`http://localhost:8080/requests/create?userId=`+this.currentUser.currentUserValue.id, request)
+  }
+
 }
