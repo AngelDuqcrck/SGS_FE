@@ -1,8 +1,8 @@
-import {Injectable, signal, WritableSignal} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {environmentDev} from "../environment/environment.dev";
 import {LoginService} from "../auth/services/login.service";
-import {BehaviorSubject, catchError, map, Observable, Subscription, take, tap} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, tap} from "rxjs";
 import {mappedResponse} from './map/UserDTOMapped'
 import {mappedHttpResponse} from "./map/HttpResponseDTO";
 
@@ -12,7 +12,10 @@ export interface UserDTO {
   lastName : string,
   email : string,
   rol: string,
-  dependence: string
+  dependence:  {
+    name: string,
+    id: number
+  }
 }
 
 

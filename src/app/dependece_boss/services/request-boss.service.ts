@@ -14,7 +14,7 @@ export class RequestBossService {
   ) { }
 
   getRequests(){
-    return this.http.get<RequestFullDTO[]>('http://localhost:8080/requests/allRequestPerDependence?idDependence=1');
+    return this.http.get<RequestFullDTO[]>('http://localhost:8080/requests/allRequestPerDependence?idDependence='+this.user.currentUserValue.dependence.id);
   }
   rejectRequest(idRequest: number){
     return this.http.post('http://localhost:8080/requests/reject?requestId='+idRequest, {});

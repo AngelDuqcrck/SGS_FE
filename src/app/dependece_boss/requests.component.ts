@@ -4,6 +4,7 @@ import {RequestBossService} from "./services/request-boss.service";
 import {TableModule} from "primeng/table";
 import {RequestFullDTO} from "../common-user/interfaces";
 import {DialogModule} from "primeng/dialog";
+import {UserService} from "../shared/user.service";
 
 @Component({
   selector: 'app-requests',
@@ -22,13 +23,18 @@ export class RequestsComponent {
   openViewDialog = false;
 
   constructor(
-    private requestService: RequestBossService
+    private requestService: RequestBossService,
+    private currentUser: UserService
   ) { }
 
   ngOnInit(): void {
     this.requestService.getRequests().subscribe({
       next: (res) => this.requestList.set(res)
     })
+  }
+
+  get dependenceName(): string {
+    return this.currentUser.currentUserValue.dependence.name;
   }
 
   openViewDialogFunc(request: RequestFullDTO) {

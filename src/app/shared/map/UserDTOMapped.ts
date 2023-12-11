@@ -7,7 +7,8 @@ export const mappedResponse = (res: any): UserDTO => {
     lastName,
     email,
     rol,
-    dependence
+    dependence,
+    dependenceId
   } = res
 
   return {
@@ -16,6 +17,9 @@ export const mappedResponse = (res: any): UserDTO => {
     lastName,
     email,
     rol,
-    dependence
+    dependence : {
+      name: dependence,
+      id: dependenceId
+    }
   }
 }

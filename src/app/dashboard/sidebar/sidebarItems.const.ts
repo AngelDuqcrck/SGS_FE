@@ -58,7 +58,7 @@ export const sidebarItems: Array<SidebarItem> = [
       {
         title: 'solicitudes',
         icon: 'pi pi-book',
-        link: ['/backlog/boss/request']
+        link: ['/backlog/boss']
       }
     ]
   }
