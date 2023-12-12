@@ -45,39 +45,56 @@
             (onHide)="selectedRequest.set(null)"
 
   >
-    {{ selectedRequest() | json }}
-  </p-dialog>
-
-
-  <p-dialog header="Aceptar solicitud"
-            [(visible)]="openAcceptDialog"
-            [modal]="true"
-            [style]="{ width: '50vw' }"
-            [draggable]="false"
-            [resizable]="false"
-
-  >
-
-  </p-dialog>
-
-  <p-dialog header="Rechazar solicitud"
-            [(visible)]="openRejectDialog"
-            [modal]="true"
-            [style]="{ width: '50vw' }"
-            [draggable]="false"
-            [resizable]="false"
-
-  >
-    <p class="m-0">
-      ¿Estas seguro que desea rechazar la solicitud seleccionada? Esta acción no se puede deshacer.
-    </p>
+    <div>
+      <span class="block text-right">{{selectedRequest()?.requestDate | date}}</span>
+      <div class="flex flex-col mb-4">
+        <span class="inline-block pb-1" >Titulo</span>
+        <span class="p-2 border border-black rounded-md" >{{selectedRequest()?.title}}</span>
+      </div>
+      <div class="flex flex-col mb-4">
+          <span class="inline-block pb-1" >Descripcion </span>
+          <textarea [value]="selectedRequest()?.description"  class="border border-black rounded-md p-3 resize-none "></textarea>
+      </div>
+    </div>
     <ng-template pTemplate="footer">
-      <button class="bg-green-500 ml-auto flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
-              (click)="openRejectDialog = false">
-        <i class="pi pi-check"></i>
-        Aceptar
-      </button>
+      <div class="flex justify-between items-center w-full">
+        <button class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700"
+                (click)="approveRequest()">
+          <i class="pi pi-trash"></i>
+          Rechazar solicitud
+        </button>
+        <button class="bg-green-500 ml-auto flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+                (click)="rejectRequest()">
+          <i class="pi pi-check"></i>
+          Aprobar solicitud
+        </button>
+      </div>
     </ng-template>
+  </p-dialog>
+
+
+  <p-dialog header="Solcitud aprobada"
+            [(visible)]="openGoodResponse"
+            [modal]="true"
+            [style]="{ width: '50vw' }"
+            [draggable]="false"
+            [resizable]="false"
+  >
+
+    <p>La solicitud ha sido aprobada correctamente!</p>
+
+  </p-dialog>
+
+  <p-dialog header="Solcitud rechazada"
+            [(visible)]="openErrResponse"
+            [modal]="true"
+            [style]="{ width: '50vw' }"
+            [draggable]="false"
+            [resizable]="false"
+  >
+
+    <p>La solicitud ha sido rechazada correctamente. Se le ha informado al usuario!</p>
+
   </p-dialog>
 
 </section>

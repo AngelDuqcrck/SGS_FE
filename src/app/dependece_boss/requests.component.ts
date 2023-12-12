@@ -1,5 +1,5 @@
 import {Component, signal} from '@angular/core';
-import {CommonModule, JsonPipe} from '@angular/common';
+import {CommonModule, DatePipe, JsonPipe} from '@angular/common';
 import {RequestBossService} from "./services/request-boss.service";
 import {TableModule} from "primeng/table";
 import {RequestFullDTO} from "../common-user/interfaces";
@@ -9,7 +9,7 @@ import {UserService} from "../shared/user.service";
 @Component({
   selector: 'app-requests',
   standalone: true,
-  imports: [CommonModule, TableModule, DialogModule, JsonPipe],
+  imports: [CommonModule, TableModule, DialogModule, JsonPipe, DatePipe],
   templateUrl: './requests.component.html',
   styles: [
   ]
@@ -18,8 +18,8 @@ export class RequestsComponent {
 
   requestList = signal<RequestFullDTO[]>([]);
   selectedRequest = signal<RequestFullDTO | null | undefined>(null);
-  openAcceptDialog = false;
-  openRejectDialog = false;
+  openGoodResponse = false;
+  openErrResponse = false;
   openViewDialog = false;
 
   constructor(
@@ -42,9 +42,34 @@ export class RequestsComponent {
     this.openViewDialog = true;
   }
 
-  openDialog(option: number) {
-    option === 1 ? this.openAcceptDialog = true : this.openRejectDialog = true;
+  approveRequest() {
+    this.requestService.VerifyRequest(this.selectedRequest()?.id!).subscribe({
+      next: (res: any) => {
+        this.openGoodResponse = true;
+        this.openViewDialog = false;
+        this.selectedRequest.set(null);
+      },
+      error: (err: any) => {
+        this.openErrResponse = true;
+        this.openViewDialog = false;
+        this.selectedRequest.set(null);
+      }
+    })
   }
 
+  rejectRequest() {
+    this.requestService.rejectRequest(this.selectedRequest()?.id!).subscribe({
+      next: (res: any) => {
+        this.openGoodResponse = true;
+        this.openViewDialog = false;
+        this.selectedRequest.set(null);
+      },
+      error: (err: any) => {
+        this.openErrResponse = true;
+        this.openViewDialog = false;
+        this.selectedRequest.set(null);
+      }
+    })
+  }
 
 }
