@@ -23,7 +23,7 @@ export const sidebarItems: Array<SidebarItem> = [
       {
         title: 'usuarios',
         icon: 'pi pi-users',
-        link: ['/dashboard']
+        link: ['service-boss/users']
       },
       {
         title: 'tickets',
