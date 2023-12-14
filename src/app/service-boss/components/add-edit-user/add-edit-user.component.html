@@ -1,0 +1,104 @@
+<p-dialog header="Header"
+          [(visible)]="visible"
+          [modal]="true"
+          [style]="{ width: '90%', maxWidth: '720px' }"
+          [draggable]="false"
+          [resizable]="false"
+>
+
+  <form [formGroup]="userForm"  class="w-full">
+
+    <div class="mb-3 flex flex-col items-center gap-2 md:flex-row ">
+      <div class="mb-5 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="firstName">
+          Nombre
+        </label>
+        <input
+          formControlName="firstName"
+          id="firstName"
+          type="text"
+          class="border border-gray-400 p-2 w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
+        />
+      </div>
+
+      <div class="mb-5 w-full">
+        <label class="block text-gray-700 font-bold mb-2" for="lastName">
+          Apellido
+        </label>
+        <input
+          formControlName="lastName"
+          id="lastName"
+          type="text"
+          class="border border-gray-400 p-2 w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
+        />
+      </div>
+
+
+    </div>
+
+    <div class="mb-5">
+      <label class="block text-gray-700 font-bold mb-2" for="email">
+        Email
+      </label>
+      <input
+        formControlName="email"
+        id="email"
+        type="email"
+        class="border border-gray-400 p-2 w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
+      />
+    </div>
+
+    <div class="mb-5 flex gap-2">
+      <div class="w-full">
+        <label class="text-gray-700 font-bold mb-2 block">Rol</label>
+        <p-dropdown
+          formControlName="rol"
+          [options]="roles"
+          optionLabel="rol"
+          [styleClass]="'w-full shadow border border-gray-400'"
+        ></p-dropdown>
+      </div>
+
+      <div class="w-full">
+        <label class="text-gray-700 font-bold mb-2 block">Dependencia</label>
+        <p-dropdown
+          formControlName="dependence"
+          [options]="dependences"
+          optionLabel="dependency"
+          [styleClass]="'w-full shadow border border-gray-400'"
+        ></p-dropdown>
+      </div>
+    </div>
+
+    <div class="mb-20">
+      <label class="block text-gray-700 font-bold mb-2" for="password">
+        Contraseña
+      </label>
+      <div class="flex gap-2">
+          <input
+            formControlName="password"
+            id="password"
+            type="password"
+            class="border flex-1 border-gray-400 p-2 w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
+          />
+        <button class="bg-blue-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700"
+                pButton>
+          Generar
+        </button>
+
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      pButton
+      label="Guardar"
+      [disabled]="!userForm.valid"
+    ></button>
+
+  </form>
+
+
+
+</p-dialog>
+
