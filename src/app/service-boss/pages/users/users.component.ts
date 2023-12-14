@@ -5,6 +5,7 @@ import {UsersService} from "../../service/users.service";
 import {TableModule} from "primeng/table";
 import {AvatarModule} from "primeng/avatar";
 import {AddEditUserComponent} from "../../components/add-edit-user/add-edit-user.component";
+import { UserFullDTO } from '../../interfaces';
 
 @Component({
   selector: 'app-users',
@@ -15,8 +16,10 @@ import {AddEditUserComponent} from "../../components/add-edit-user/add-edit-user
   ]
 })
 export class UsersComponent {
-  usersList = signal<UserDTO[]>([])
+  usersList = signal<UserFullDTO[]>([])
+  selectedUser: UserFullDTO | null = null
   colsHeaders = signal([ '', 'Nombre completo', 'Dependencia', 'Correo', 'Cargo actual','Acciones'])
+  modalVisible = false
   constructor(
     private usersService: UsersService
   ) { }
@@ -27,6 +30,11 @@ export class UsersComponent {
         this.usersList.set(users)
       }
     })
+  }
+
+  openEditUserModal(user: UserFullDTO) { 
+    this.selectedUser = {...user}
+    this.modalVisible = true
   }
 
 }

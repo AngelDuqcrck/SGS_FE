@@ -1,7 +1,7 @@
 <header class="bg-white shadow flex justify-between items-center p-4 rounded-md mb-6">
   <h2 class="text-2xl" > Personal </h2>
   <button class="bg-blue-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700"
-          >
+          (click)="modalVisible = true">
     <i class="pi pi-plus-circle"></i>
     Nuevo
   </button>
@@ -14,7 +14,7 @@
            [showCurrentPageReport]="true"
            [tableStyle]="{ 'min-width': '50rem' }"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
-           [rowsPerPageOptions]="[10, 25, 50]">
+           [rowsPerPageOptions]="[5, 10, 25, 50]">
     <ng-template pTemplate="header">
       <tr class="bg-cyan-600 text-white ">
         <th class="bg-cyan-600 text-white text-center " *ngFor="let col of colsHeaders()">
@@ -30,10 +30,10 @@
         <td class="text-center">{{ user.firstName + ' ' + user.lastName }}</td>
         <td class="text-center lowercase">{{ user.dependence.name }}</td>
         <td class="text-center">{{ user.email }}</td>
-        <td class="text-center lowercase">{{ user.rol.substring('ROLE_'.length).replace('_',' ') }}</td>
+        <td class="text-center lowercase">{{ user.rol.role.substring('ROLE_'.length).replace('_',' ') }}</td>
         <td class="text-center flex items-center gap-2">
           <button class="bg-blue-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700"
-                  >
+                  (click)="openEditUserModal(user)">
             <i class="pi pi-pencil"></i>
           </button>
         </td>
@@ -41,6 +41,6 @@
     </ng-template>
   </p-table>
 
-  <app-add-edit-user />
+  <app-add-edit-user [(visible)]="modalVisible" [(user)]="selectedUser" />
 
 </section>

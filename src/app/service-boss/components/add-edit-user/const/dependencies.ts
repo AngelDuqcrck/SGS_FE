@@ -1,9 +1,9 @@
 export const dependences = [
-  { id: 1, dependency: 'Marketing' },
-  { id: 2, dependency: 'Producción' },
-  { id: 3, dependency: 'Finanzas' },
-  { id: 4, dependency: 'RRHH' },
-  { id: 5, dependency: 'Servicios' },
+  { id: 1, name: 'Marketing' },
+  { id: 2, name: 'Producción' },
+  { id: 3, name: 'Finanzas' },
+  { id: 4, name: 'RRHH' },
+  { id: 5, name: 'Servicios' },
 ]
 
 export const roles = [

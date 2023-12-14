@@ -4,12 +4,13 @@
           [style]="{ width: '90%', maxWidth: '720px' }"
           [draggable]="false"
           [resizable]="false"
+          (onHide)="onHide()"
 >
 
-  <form [formGroup]="userForm"  class="w-full">
+  <form [formGroup]="userForm"  class="w-full" (ngSubmit)="submit()">
 
-    <div class="mb-3 flex flex-col items-center gap-2 md:flex-row ">
-      <div class="mb-5 w-full">
+    <div class="mb-3 flex flex-col  gap-2 md:flex-row ">
+      <div class="mb-5 w-full ">
         <label class="block text-gray-700 font-bold mb-2" for="firstName">
           Nombre
         </label>
@@ -17,8 +18,10 @@
           formControlName="firstName"
           id="firstName"
           type="text"
-          class="border border-gray-400 p-2 w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
+          class="border border-gray-400 p-2  w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
+          [ngClass]="{ 'border-red-500': triggerError('firstName') }"
         />
+        <span class="text-red-400 pt-2 pl-2 inline-block" *ngIf="triggerError('firstName')">Este campo es requerido</span>
       </div>
 
       <div class="mb-5 w-full">
@@ -30,10 +33,10 @@
           id="lastName"
           type="text"
           class="border border-gray-400 p-2 w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
+          [ngClass]="{ 'border-red-500': triggerError('lastName') }"
         />
+        <span class="text-red-400 pt-2 pl-2  inline-block" *ngIf="triggerError('lastName')">Este campo es requerido</span>
       </div>
-
-
     </div>
 
     <div class="mb-5">
@@ -45,28 +48,24 @@
         id="email"
         type="email"
         class="border border-gray-400 p-2 w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
+        [ngClass]="{ 'border-red-500': triggerError('email') }"
       />
+      <span class="text-red-400 pt-2 pl-2  inline-block" *ngIf="triggerError('email')">Este campo es requerido</span>
     </div>
 
     <div class="mb-5 flex gap-2">
       <div class="w-full">
         <label class="text-gray-700 font-bold mb-2 block">Rol</label>
-        <p-dropdown
-          formControlName="rol"
-          [options]="roles"
-          optionLabel="rol"
-          [styleClass]="'w-full shadow border border-gray-400'"
-        ></p-dropdown>
+        <select formControlName="role" class="w-full shadow border border-gray-400 p-3 rounded-md cursor-pointer" (change)="selectRol($event)" >
+          <option *ngFor="let rol of roles" [value]="rol.id" class="cursor-pointer">{{ rol.rol }}</option>
+        </select>
       </div>
 
       <div class="w-full">
         <label class="text-gray-700 font-bold mb-2 block">Dependencia</label>
-        <p-dropdown
-          formControlName="dependence"
-          [options]="dependences"
-          optionLabel="dependency"
-          [styleClass]="'w-full shadow border border-gray-400'"
-        ></p-dropdown>
+        <select formControlName="dependence" class="w-full shadow border border-gray-400 p-3 rounded-md cursor-pointer"  (change)="selectDependence($event)">
+          <option *ngFor="let depen of dependences" [value]="depen.id" class="cursor-pointer">{{ depen.name }}</option>
+        </select>
       </div>
     </div>
 
@@ -75,14 +74,20 @@
         Contraseña
       </label>
       <div class="flex gap-2">
-          <input
+        <div class="w-full flex-1">
+          <p-password
             formControlName="password"
-            id="password"
-            type="password"
-            class="border flex-1 border-gray-400 p-2 w-full outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors"
-          />
-        <button class="bg-blue-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700"
-                pButton>
+            [feedback]="false"
+            [toggleMask]="true"
+            [inputStyleClass]="'w-full flex-1 border border-gray-400 p-2 outline-none rounded-md focus:border-blue-500 focus:shadow transition-colors'"
+            [style]="{ width: '100%' }"
+          ></p-password>
+          <span class="text-red-400 pt-2 pl-2  inline-block" *ngIf="triggerError('password')">Este campo es requerido</span>
+        </div>
+        <button class="bg-blue-500 self-start flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700"
+                pButton
+                type="button"
+                (click)="generateRandomPassword()">
           Generar
         </button>
 
@@ -94,6 +99,7 @@
       pButton
       label="Guardar"
       [disabled]="!userForm.valid"
+      class="bg-blue-500 ml-auto flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700"
     ></button>
 
   </form>
