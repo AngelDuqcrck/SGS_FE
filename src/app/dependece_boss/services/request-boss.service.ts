@@ -24,4 +24,8 @@ export class RequestBossService {
     return this.http.post('http://localhost:8080/requests/verify?requestId='+idRequest, {});
   }
 
+  getVerifyRequests(){ 
+    return this.http.get<RequestFullDTO[]>('http://localhost:8080/requests/verifiedRequest')
+  }
+
 }

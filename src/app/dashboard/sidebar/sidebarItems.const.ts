@@ -18,7 +18,7 @@ export const sidebarItems: Array<SidebarItem> = [
       {
         title: 'solicitudes',
         icon: 'pi pi-book',
-        link: ['/dashboard']
+        link: ['service-boss/requests-boss-service']
       },
       {
         title: 'usuarios',
