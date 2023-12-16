@@ -1,1 +1,29 @@
-<p>tickets works!</p>
+<header class="bg-white shadow flex justify-between items-center p-4 rounded-md mb-6">
+    <h2 class="text-2xl" > Gestión de Tickets  </h2>
+</header>
+
+<section>
+
+    <p-tabView >
+        <p-tabPanel [headerStyleClass]="'w-1/2'"  >
+            <ng-template pTemplate="header">
+                <div class="text-center w-full">
+                    <i class="pi pi-ticket pr-2"></i>
+                    <span>Tickets generados</span>
+                </div>
+            </ng-template>
+            <app-ticket-table />
+        </p-tabPanel>
+        <p-tabPanel [headerStyleClass]="'w-1/2 '">
+            <ng-template pTemplate="header">
+                <div class="text-center w-full">
+                    <i class="pi pi-ticket pr-2"></i>
+                    <span>Crear tickets</span>
+                </div>
+            </ng-template>
+            hola owo 
+        </p-tabPanel>
+    </p-tabView>
+
+
+</section>
