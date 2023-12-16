@@ -1,9 +1,9 @@
-interface SidebarItem {
+export interface SidebarItem {
   rol: string;
   items: Item[];
 }
 
-interface Item {
+export interface Item {
   title: string,
   icon?: string,
   link?: string[],
@@ -28,7 +28,7 @@ export const sidebarItems: Array<SidebarItem> = [
       {
         title: 'tickets',
         icon: 'pi pi-ticket',
-        link: ['/dashboard']
+        link: ['service-boss/tickets']
       },
     ]
   },
@@ -48,7 +48,7 @@ export const sidebarItems: Array<SidebarItem> = [
       {
         title: 'tickets',
         icon: 'pi-ticket',
-        link: ['/dashboard']
+        link: ['service-employee/tickets']
       }
     ]
   },

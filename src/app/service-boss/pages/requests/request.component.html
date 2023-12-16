@@ -14,6 +14,7 @@
       <tr class="bg-cyan-600 text-white">
         <th class="bg-cyan-600 text-white text-center" >Titulo</th>
         <th class="bg-cyan-600 text-white text-center" >Fecha</th>
+        <th class="bg-cyan-600 text-white text-center" >Estado actual</th>
         <th class="bg-cyan-600 text-white text-center" >Acciones</th>
       </tr>
     </ng-template>
@@ -21,14 +22,11 @@
       <tr >
         <td class="text-center">{{ request.title }}</td>
         <td class="text-center">{{ request.requestDate | date  }}</td>
+        <td class="text-center">{{ request.statusId | requestStatus  }}</td>
         <td class="flex items-center justify-center gap-3">
           <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
-                  (click)="verifyRequest(request.id)"  >
-            <i class="pi pi-check"></i>
-          </button>
-          <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
-                  (click)="deniedRequest(request.id)">
-            <i class="pi pi-check"></i>
+                  (click)="triggerViewRequest(request)" pTooltip="Ver completo" tooltipPosition="top">
+            <i class="pi pi-eye"></i>
           </button>
         </td>
       </tr>
@@ -42,11 +40,44 @@
             [style]="{ width: '50vw' }"
             [draggable]="false"
             [resizable]="false"
-    > 
+    >
         <!-- Make a message look pretty good -->
         <div class="flex flex-col mb-4">
             <span class="inline-block pb-1" >{{dataModal().message}}</span>
-        </div>  
-    </p-dialog>   
+        </div>
+    <ng-template pTemplate="footer">
+      <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+              (click)="selectedRequest = null; confirmDialog = false" pTooltip="Aprobar solicitud" tooltipPosition="top">
+        <i class="pi pi-check"></i>
+        Aprobar
+      </button>
+    </ng-template>
+    </p-dialog>
+
+  <p-dialog [header]="dataConfirmDialog().title"
+            [(visible)]="confirmDialog"
+            [modal]="true"
+            [style]="{ width: '50vw' }"
+            [draggable]="false"
+            [resizable]="false"
+            (onHide)="selectedRequest = null"
+  >
+    <app-request-view [request]="selectedRequest" />
+    <ng-template pTemplate="footer">
+      <div class="flex justify-between items-center w-full">
+        <button class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700"
+                (click)="deniedRequest()" pTooltip="Rechazar solicitud"tooltipPosition="top">
+          <i class="pi pi-ban"></i>
+          Rechazar
+        </button>
+        <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+                (click)="verifyRequest()" pTooltip="Aprobar solicitud" tooltipPosition="top">
+          <i class="pi pi-check"></i>
+          Aprobar
+        </button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
 
 </section>

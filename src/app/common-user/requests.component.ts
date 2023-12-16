@@ -22,8 +22,8 @@ export class RequestsComponent {
   openSendDialog = false
   openAddDialogForm = false
   requestForm = this.fb.group({
-    title: ['aa', [Validators.required, Validators.minLength(3)]],
-    description: ['aa', [Validators.required, Validators.minLength(3)]],
+    title: ['', [Validators.required, Validators.minLength(3)]],
+    description: ['', [Validators.required, Validators.minLength(3)]],
   })
 
   constructor(

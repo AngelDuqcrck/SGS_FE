@@ -1,7 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink, RouterLinkActive} from "@angular/router";
-import {sidebarItems} from "./sidebarItems.const";
+import {sidebarItems, Item} from "./sidebarItems.const";
 import {SidebarService} from "./sidebar.service";
 import {LoginService} from "../../auth/services/login.service";
 import {UserService} from "../../shared/user.service";
@@ -16,9 +16,7 @@ import {UserService} from "../../shared/user.service";
 })
 export class SidebarComponent {
 
-  items = sidebarItems
-                        .filter(item => item.rol === this.currentUser.currentUserValue.rol)
-                        .map(item => item.items)[0]
+  items: Item[] = []
 
   constructor(
     private sidebarService: SidebarService,

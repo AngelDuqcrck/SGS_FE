@@ -59,12 +59,12 @@
     <ng-template pTemplate="footer">
       <div class="flex justify-between items-center w-full">
         <button class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700"
-                (click)="approveRequest()">
+                (click)="rejectRequest()">
           <i class="pi pi-trash"></i>
           Rechazar solicitud
         </button>
         <button class="bg-green-500 ml-auto flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
-                (click)="rejectRequest()">
+                (click)="approveRequest()">
           <i class="pi pi-check"></i>
           Aprobar solicitud
         </button>
