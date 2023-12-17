@@ -19,7 +19,7 @@
   </ng-template>
   <ng-template pTemplate="body" let-ticket>
     <tr>
-      <td class="text-center">{{ ticket.title }}</td>
+      <td class="text-center">{{ ticket.tittle }}</td>
       <td class="text-center lowercase">{{ ticket.startDate | date }}</td>
       <td class="text-center lowercase">{{ ticket.endDate | date }}</td>
       <td class="text-center lowercase">
@@ -30,14 +30,16 @@
         <button
           class="bg-blue-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-blue-700"
           pTooltip="Editar ticket"
-          pTooltipPosition="top"
+          tooltipPosition="top"
+          (click)="openEdit(ticket)"
         >
           <i class="pi pi-pencil"></i>
         </button>
         <button
           class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700"
           pTooltip="Finalizar ticket"
-          pTooltipPosition="top"
+          tooltipPosition="top"
+          (click)="finishTicket(ticket.id)"
         >
           <i class="pi pi-ban"></i>
         </button>
@@ -46,4 +48,26 @@
   </ng-template>
 </p-table>
 
-<app-add-edit-ticket />
+<ng-container *ngIf="openEditTicket">
+  <app-add-edit-ticket [(visible)]="openEditTicket" [(ticket)]="selectedTicket" ></app-add-edit-ticket>
+</ng-container>
+
+<p-dialog  [header]="dialogData().title"
+           [(visible)]="openDialog"
+           [modal]="true"
+           [style]="{ width: '95%', maxWidth: '700px'}"
+           [draggable]="false"
+           [resizable]="false" >
+  <p>{{dialogData().description}}</p>
+  <ng-template pTemplate="footer">
+    <button
+      class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700"
+      pTooltip="Finalizar ticket"
+      tooltipPosition="top"
+      (click)="resetDialog()"
+    >
+      <i class="pi pi-ban"></i>
+      Aceptar
+    </button>
+  </ng-template>
+</p-dialog>

@@ -9,13 +9,19 @@ export interface UserFullDTO extends Omit<UserDTO, 'rol'> {
 }
 
 export interface TicketDTO {
-  id:             number;
-  title:         string;
-  description:    string;
-  observation:    null;
-  startDate:      Date;
-  endDate:        Date;
-  employeeId:     null;
-  assignmentDate: Date;
-  statusId:       null;
+  id:             number | null;
+  tittle:          string;
+  description:    string | null;
+  observation:    string | null;
+  startDate:      Date | string;
+  endDate:        Date | string;
+  employeeId:     number | null;
+  assignmentDate: Date | null;
+  statusId:       number | null;
+}
+
+export interface UserServiceEmployeeDTO {
+  id: number;
+  firstName: string;
+  lastName: string;
 }

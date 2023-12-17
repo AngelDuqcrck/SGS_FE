@@ -1,29 +1,75 @@
-<p-dialog header="Header" 
-            [(visible)]="visible" 
-            [modal]="true" 
-            [style]="{ width: '95%', maxWidth: '900px'}" 
-            [draggable]="false" 
+<p-dialog   header="{{ticket ?  'Editar ticket' : 'Nuevo ticket'}}"
+            [(visible)]="visible"
+            [modal]="true"
+            [style]="{ width: '95%', maxWidth: '900px'}"
+            [draggable]="false"
             [resizable]="false"
-            
+
             >
-    <form >
+    <form [formGroup]="form" (ngSubmit)="submit()">
 
         <div class="mb-4">
             <label for="title" class="inline-block pb-2">Titulo</label>
-            <input id="title" type="text" class="block w-full border border-gray-400 rounded-md p-2 outline-none ">
+            <input id="title"
+                   type="text"
+                   class="block w-full border border-gray-400 rounded-md p-2 outline-none "
+                   formControlName="title"
+            >
+        </div>
+
+        <div class="mb-4">
+          <label for="description" class="inline-block pb-2">Descripcion</label>
+          <textarea id="description"
+                    class="block w-full border border-gray-400 rounded-md p-2 outline-none "
+                    formControlName="description">
+
+          </textarea>
         </div>
 
         <div class="mb-4 flex gap-4">
             <div class="flex flex-col w-1/2">
-                <label for="description">Fecha de inicio</label>
-                <input type="date" class="block w-full border border-gray-400 rounded-md p-2 outline-none ">
+                <label for="startDate">Fecha de inicio</label>
+                <input type="date"
+                       id="startDate"
+                       class="block w-full border border-gray-400 rounded-md p-2 outline-none "
+                       formControlName="startDate"
+                >
+                <span class="text-red-400 pl-2" *ngIf="triggerDateError('startDate')"> Debe ser mayor a la fecha actual</span>
             </div>
             <div class="flex flex-col w-1/2">
-                <label for="description">Fecha de fin</label>
-                <input type="date" class="block w-full border border-gray-400 rounded-md p-2 outline-none ">
+                <label for="endDate">Fecha de fin</label>
+                <input type="date"
+                       id="endDate"
+                       class="block w-full border border-gray-400 rounded-md p-2 outline-none"
+                       formControlName="endDate"
+                >
+                <span class="text-red-400 pl-2" *ngIf="triggerDateError('endDate')">Debe ser mayor a la fecha actual</span>
             </div>
         </div>
 
+        <div class="mb-6">
+          <label for="endDate">Empleado encargado</label>
+          <select class="block w-full border border-gray-400 rounded-md p-2 outline-none cursor-pointer"
+                   formControlName="employeeId"
+          >
+            <option value="" disabled selected>Seleccione un empleado</option>
+            <option *ngFor="let user of usersEmployee()" [value]="user.id">{{ user.firstName }} {{user.lastName}}</option>
+          </select>
+        </div>
 
+      <div class="mb-4 flex justify-between">
+         <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition-colors"
+                 (click)="cancel()"
+                 type="button"
+         >
+            Cancelar
+        </button>
+        <button pButton class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded transition-colors"
+                type="submit"
+                [disabled]="!form.valid"
+                >
+            Agregar
+        </button>
+      </div>
     </form>
 </p-dialog>

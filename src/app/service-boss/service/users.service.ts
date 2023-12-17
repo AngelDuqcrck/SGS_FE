@@ -3,7 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {UserDTO} from "../../shared/user.service";
 import {map} from "rxjs";
 import {mappedFullResponse, mappedResponse} from "../../shared/map/UserDTOMapped";
-import { UserFullDTO } from '../interfaces';
+import {UserFullDTO, UserServiceEmployeeDTO} from '../interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -49,6 +49,10 @@ export class UsersService {
       dependenceId: dependence.id
     }
     return this.http.patch(`http://localhost:8080/users/update`, userDTO)
+  }
+
+  getUserServiceEmployee() {
+    return this.http.get<UserServiceEmployeeDTO[]>('http://localhost:8080/users/service-employee')
   }
 
 }
