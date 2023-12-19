@@ -6,7 +6,7 @@ export const EMPLOYEE_SERVICE_ROUTES: Routes = [
   { path: '', component: EmployeeServiceComponent },
   {
     path: '**',
-    redirectTo: '/backlog/boss',
+    redirectTo: '/backlog/service-employee',
     pathMatch: 'full'
   },
 

@@ -1,1 +1,109 @@
-<p>employee-service works!</p>
+<header class="bg-white shadow flex justify-between items-center p-4 rounded-md mb-6">
+    <h2 class="text-2xl" >Tickets de Servicio</h2>
+</header>
+
+<section>
+
+    <p-table [value]="ticketsList()"
+         [paginator]="true"
+         [rows]="5"
+         [showCurrentPageReport]="true"
+         [tableStyle]="{ 'min-width': '50rem' }"
+         currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+         [rowsPerPageOptions]="[10, 25, 50]">
+  <ng-template pTemplate="header">
+    <tr class="bg-cyan-600 text-white">
+      <th class="bg-cyan-600 text-white text-center" >Titulo</th>
+      <th class="bg-cyan-600 text-white text-center" >Fecha creación</th>
+      <th class="bg-cyan-600 text-white text-center" >fecha limite</th>
+      <th class="bg-cyan-600 text-white text-center" >Acciones</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-ticket>
+    <tr >
+      <td class="text-center">{{ ticket.tittle }}</td>
+      <td class="text-center">{{ ticket.assignmentDate | date  }}</td>
+      <td class="text-center">{{ ticket.endDate | date  }}</td>
+      <td class="flex items-center justify-center gap-3">
+        <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+                pTooltip="Registrar observacion"
+                tooltipPosition="top"
+                (click)="registerObservationTrigger(ticket)"
+                >
+          <i class="pi pi-eye"></i>
+          Observacion
+        </button>
+        <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+                pTooltip="Finalizar ticket"
+                tooltipPosition="top"
+                (click)="triggerFinishTicket(ticket)"
+                >
+          <i class="pi pi-ban"></i>
+          Finalizar
+        </button>
+      </td>
+    </tr>
+  </ng-template>
+
+</p-table>
+
+<p-dialog [header]="generalDialogMessage().title" 
+          [(visible)]="generalDialog" 
+          [modal]="true" 
+          [style]="{ width: '90%', maxWidth: '650px' }" 
+          [draggable]="false" 
+          [resizable]="false">
+    <p class="m-0">
+        {{ generalDialogMessage().message }}
+    </p>
+    <ng-template pTemplate="footer">
+        <div class="flex items-center justify-between" *ngIf="generalDialogMessage().option === 'finish'">
+            <button class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700"
+                pTooltip="Registrar observacion"
+                tooltipPosition="top"
+                >
+                    <i class="pi pi-eye"></i>
+                    Cancelar
+            </button>
+            <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+                pTooltip="Registrar observacion"
+                tooltipPosition="top"
+                >
+                <i class="pi pi-eye"></i>
+                Aceptar
+            </button>
+        </div>
+        <div *ngIf="generalDialogMessage().option === 'general'">
+            <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+                pTooltip="Registrar observacion"
+                tooltipPosition="top"
+                (click)="resetGeneralDialog()"
+                >
+                <i class="pi pi-check"></i>
+                Aceptar
+            </button>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-dialog [header]="generalDialogMessage().title" 
+          [(visible)]="observationDialog" 
+          [modal]="true" 
+          [style]="{ width: '90%', maxWidth: '650px' }" 
+          [draggable]="false" 
+          [resizable]="false">
+
+    <textarea class="w-full h-32 p-2 resize-none border border-gray-100 rounded-md" placeholder="Observacion" [(ngModel)]="observation" ></textarea>
+    <div >
+        <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+            pTooltip="Registrar observacion"
+            tooltipPosition="top"
+            (click)="resetGeneralDialog()"
+            >
+            <i class="pi pi-check"></i>
+            Aceptar
+        </button>
+    </div>
+</p-dialog>
+
+</section>

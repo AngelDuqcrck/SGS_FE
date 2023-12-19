@@ -30,4 +30,12 @@ export class TicketService {
     return this.http.post(`http://localhost:8080/tickets/create?requestId=${id}`, ticket)
   }
 
+  getTicketsByEmployeeId(id: number) {
+    return this.http.get<TicketDTO[]>(`http://localhost:8080/tickets/employee?userId=${id}`);
+  }
+
+  registerObservation(ticketId: number, observation: string) {
+    return this.http.post(`http://localhost:8080/tickets/registerObservations?ticketId=${ticketId}`, observation);
+  }
+
 }
