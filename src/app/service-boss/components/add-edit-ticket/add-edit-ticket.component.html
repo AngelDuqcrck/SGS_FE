@@ -4,7 +4,7 @@
             [style]="{ width: '95%', maxWidth: '900px'}"
             [draggable]="false"
             [resizable]="false"
-
+            (onHide)="onHide()"
             >
     <form [formGroup]="form" (ngSubmit)="submit()">
 

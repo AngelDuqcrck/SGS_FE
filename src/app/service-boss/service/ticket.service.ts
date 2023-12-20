@@ -36,7 +36,7 @@ export class TicketService {
   }
 
   registerObservation(ticketId: number, observation: string) {
-    return this.http.post(`http://localhost:8080/tickets/registerObservations?ticketId=${ticketId}`, observation);
+    return this.http.post(`http://localhost:8080/tickets/registerObservations?ticketId=${ticketId}&observation=${observation}`, {});
   }
 
 }

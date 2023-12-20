@@ -29,4 +29,9 @@ export class RequestVerifyTableComponent {
       }
     })
   }
+
+  openModal(requestId: number) {
+    this.selectedRequestId = requestId
+    this.openAddTicket = true
+  }
 }

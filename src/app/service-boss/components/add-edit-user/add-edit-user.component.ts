@@ -34,7 +34,7 @@ export class AddEditUserComponent {
     firstName: ['', [Validators.required, Validators.minLength(4)] ],
     lastName: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: [''],
     role: [-1, [Validators.required]],
     dependence: [-1, [Validators.required]]
   })
@@ -49,6 +49,9 @@ export class AddEditUserComponent {
 
   ngOnChanges(){
     if (this.user) {
+      this.userForm.get('password')?.clearValidators()
+      this.userForm.get('password')?.updateValueAndValidity()
+  
       this.userForm.patchValue({ 
         firstName: this.user.firstName,
         lastName: this.user.lastName,
@@ -56,8 +59,10 @@ export class AddEditUserComponent {
         role: this.roles.find(rol => rol.id === this.user?.rol.id)?.id,
         dependence: this.dependences.find(dep => dep.id === this.user?.dependence.id)?.id
       })      
-    }else 
+    }else{ 
       this.userForm.reset()
+      this.userForm.get('password')?.addValidators([Validators.required, Validators.minLength(8)])
+    } 
   }
 
   generateRandomPassword() { 

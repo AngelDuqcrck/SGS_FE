@@ -26,6 +26,9 @@ export class RequestsComponent {
     description: ['', [Validators.required, Validators.minLength(3)]],
   })
 
+  generalDialog = false
+  generalDialogData = signal({title: '', message: ''})
+
   constructor(
     private requestService: RequestService,
     private router: Router,
@@ -66,9 +69,13 @@ export class RequestsComponent {
       next: () => {
         this.openSendDialog = false;
         this.requestService.requestSelected = null
+        this.generalDialog = true
+        this.generalDialogData.set({title: 'Solicitud enviada!', message: 'Se ha enviado la solicitud correctamente'})
       },
       error: error => {
         this.requestService.requestSelected = null
+        this.generalDialog = true
+        this.generalDialogData.set({title: 'Ha ocurrido un error!', message: 'Ha ocurrido un error inesperado. Si el problema persiste, contacte con el administrador'})
       }
     })
   }
@@ -106,6 +113,16 @@ export class RequestsComponent {
       }
     })
 
+  }
+
+  resetAll() {
+    this.requestForm.reset()
+    this.openDeleteDialog = false
+    this.openSendDialog = false
+    this.openAddDialogForm = false
+    this.generalDialog = false
+    this.generalDialogData.set({title: '', message: ''})
+    this.requestService.requestSelected = null
   }
 
   private mappedToRequestDTO(request: RequestFullDTO): RequestDTO {

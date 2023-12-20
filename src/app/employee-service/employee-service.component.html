@@ -61,15 +61,16 @@
             <button class="bg-red-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-red-700"
                 pTooltip="Registrar observacion"
                 tooltipPosition="top"
+                (click)="generalDialog = false; selectedTicket.set(null)"
                 >
-                    <i class="pi pi-eye"></i>
+                    <i class="pi pi-ban"></i>
                     Cancelar
             </button>
             <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
                 pTooltip="Registrar observacion"
                 tooltipPosition="top"
-                >
-                <i class="pi pi-eye"></i>
+                (click)="finishTicket()">
+                <i class="pi pi-check"></i>
                 Aceptar
             </button>
         </div>
@@ -92,13 +93,12 @@
           [style]="{ width: '90%', maxWidth: '650px' }" 
           [draggable]="false" 
           [resizable]="false">
-
-    <textarea class="w-full h-32 p-2 resize-none border border-gray-100 rounded-md" placeholder="Observacion" [(ngModel)]="observation" ></textarea>
-    <div >
-        <button class="bg-green-500 flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+    <textarea id='observation' class="w-full h-32 p-2 resize-none border border-gray-300 rounded-md" placeholder="Observacion" [(ngModel)]="observation" ></textarea>
+    <div class="mt-4">
+        <button class="bg-green-500 flex items-center ml-auto gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
             pTooltip="Registrar observacion"
             tooltipPosition="top"
-            (click)="resetGeneralDialog()"
+            (click)="sendObservation()"
             >
             <i class="pi pi-check"></i>
             Aceptar

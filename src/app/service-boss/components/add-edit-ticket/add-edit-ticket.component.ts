@@ -109,4 +109,11 @@ export class AddEditTicketComponent {
 
   }
 
+  onHide(){
+      this.visibleChange.emit(false);
+      this.form.reset();
+      this.requestIdChange.emit(null);
+      this.ticketChange.emit(null);
+  }
+
 }

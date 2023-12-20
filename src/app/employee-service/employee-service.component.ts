@@ -70,6 +70,7 @@ export class EmployeeServiceComponent {
   registerObservationTrigger(ticket: TicketDTO) {
     this.selectedTicket.set(ticket);
     this.observationDialog = true;
+    this.generalDialogMessage.set({ title: 'Registrar observación', message: '¿Está seguro que desea registrar una observación?', option: 'general' });
   }
 
   sendObservation() { 
@@ -78,6 +79,7 @@ export class EmployeeServiceComponent {
     if (ticket) {
       this.ticketsService.registerObservation(ticket.id!, this.observation).subscribe({
         next: () => {
+          this.observationDialog = false;
           this.generalDialog = true;
           this.generalDialogMessage.set({ title: 'Observación registrada', message: 'Se ha registrado la observación exitosamente', option: 'general' });
         }

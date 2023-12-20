@@ -47,6 +47,7 @@ export class RequestsComponent {
       next: (res: any) => {
         this.openGoodResponse = true;
         this.openViewDialog = false;
+        this.requestList.update(requests => requests.filter(request => request.id !== this.selectedRequest()?.id))
         this.selectedRequest.set(null);
       },
       error: (err: any) => {
@@ -62,6 +63,7 @@ export class RequestsComponent {
       next: (res: any) => {
         this.openGoodResponse = true;
         this.openViewDialog = false;
+        this.requestList.update(requests => requests.filter(request => request.id !== this.selectedRequest()?.id))
         this.selectedRequest.set(null);
       },
       error: (err: any) => {

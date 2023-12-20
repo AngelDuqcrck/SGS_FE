@@ -121,4 +121,24 @@
 
   </p-dialog>
 
+  <p-dialog [header]="generalDialogData().title"
+            [(visible)]="generalDialog"
+            [modal]="true"
+            [style]="{ width: '50vw' }"
+            [draggable]="false"
+            [resizable]="false"
+            (onHide)="resetAll()"
+  >
+    <p class="m-0">
+      {{generalDialogData().message}}
+    </p>
+    <ng-template pTemplate="footer">
+      <button class="bg-green-500 ml-auto flex items-center gap-2 text-white font-bold py-2 px-4 rounded transition-colors hover:bg-green-700"
+          (click)="resetAll()">
+          <i class="pi pi-check"></i>
+          Aceptar
+      </button>
+    </ng-template>
+</p-dialog>
+
 </section>
