@@ -90,6 +90,7 @@ export class LoginService {
     this._isLogin = false;
     this._currentUser.next({username: ''});
     this.router.navigate(['/auth'])
+    window.location.reload()
   }
 
   private mapAnswer(res: any): LoginResponseDTO {

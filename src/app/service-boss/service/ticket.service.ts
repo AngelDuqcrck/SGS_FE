@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {RequestDTO, RequestFullDTO} from "../../common-user/interfaces";
 import {TicketDTO} from "../interfaces";
+import { UserService } from 'src/app/shared/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TicketService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private user: UserService) { }
 
   getApprovedRequests() {
     return this.http.get<RequestFullDTO[]>('http://localhost:8080/requests/approvedRequests');
@@ -31,7 +32,7 @@ export class TicketService {
   }
 
   getTicketsByEmployeeId(id: number) {
-    return this.http.get<TicketDTO[]>(`http://localhost:8080/tickets/employee?userId=${id}`);
+    return this.http.get<TicketDTO[]>(`http://localhost:8080/tickets/employee?userId=${this.user.currentUserValue.id}`);
   }
 
   registerObservation(ticketId: number, observation: string) {
