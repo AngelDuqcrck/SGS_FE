@@ -4,6 +4,7 @@ import {UserDTO} from "../../shared/user.service";
 import {map} from "rxjs";
 import {mappedFullResponse, mappedResponse} from "../../shared/map/UserDTOMapped";
 import {UserFullDTO, UserServiceEmployeeDTO} from '../interfaces';
+import { environmentDev } from 'src/app/environment/environment.dev';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class UsersService {
   ) { }
 
   getUsers() {
-    return this.http.get<UserFullDTO[]>('http://localhost:8080/users').pipe(
+    return this.http.get<UserFullDTO[]>(`${environmentDev.url}users`).pipe(
       map((res: any) => res.map(mappedFullResponse))
     );
   }
@@ -32,7 +33,7 @@ export class UsersService {
       dependence: dependence.name,
       dependenceId: dependence.id
     }
-    return this.http.post('http://localhost:8080/users', userDTO)
+    return this.http.post(`${environmentDev.url}users`, userDTO)
   }
 
   updateUser (user: UserFullDTO) {
@@ -48,11 +49,11 @@ export class UsersService {
       dependence: dependence.name,
       dependenceId: dependence.id
     }
-    return this.http.patch(`http://localhost:8080/users/update`, userDTO)
+    return this.http.patch(`${environmentDev.url}users/update`, userDTO)
   }
 
   getUserServiceEmployee() {
-    return this.http.get<UserServiceEmployeeDTO[]>('http://localhost:8080/users/service-employee')
+    return this.http.get<UserServiceEmployeeDTO[]>(`${environmentDev.url}users/service-employee`)
   }
 
 }

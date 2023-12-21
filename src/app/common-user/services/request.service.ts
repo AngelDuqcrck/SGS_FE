@@ -3,6 +3,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {RequestDTO, RequestFullDTO} from "../interfaces";
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "../../shared/user.service";
+import { environmentDev } from 'src/app/environment/environment.dev';
 
 @Injectable({
   providedIn: 'root'
@@ -26,23 +27,23 @@ export class RequestService {
   }
 
   getlookRequestDetails() {
-    return this.http.get<RequestFullDTO>(`http://localhost:8080/requests?requestId=${this._requestSelected.value?.id}`)
+    return this.http.get<RequestFullDTO>(`${environmentDev.url}requests?requestId=${this._requestSelected.value?.id}`)
   }
 
   getRequests() {
-    return this.http.get<RequestDTO[]>(`http://localhost:8080/requests/user?userId=${this.currentUser.currentUserValue.id}`)
+    return this.http.get<RequestDTO[]>(`${environmentDev.url}requests/user?userId=${this.currentUser.currentUserValue.id}`)
   }
 
   deleteRequest() {
-    return this.http.delete(`http://localhost:8080/requests/delete?requestId=${this._requestSelected.value?.id}`)
+    return this.http.delete(`${environmentDev.url}requests/delete?requestId=${this._requestSelected.value?.id}`)
   }
 
   sendRequest() {
-    return this.http.post(`http://localhost:8080/requests/send?requestId=${this._requestSelected.value?.id}`, {})
+    return this.http.post(`${environmentDev.url}requests/send?requestId=${this._requestSelected.value?.id}`, {})
   }
 
   createRequest(request: any) {
-    return this.http.post<RequestFullDTO>(`http://localhost:8080/requests/create?userId=`+this.currentUser.currentUserValue.id, request)
+    return this.http.post<RequestFullDTO>(`${environmentDev.url}requests/create?userId=`+this.currentUser.currentUserValue.id, request)
   }
 
 }
