@@ -94,6 +94,7 @@ export class AddEditTicketComponent {
             this.ticketChange.emit(ticket);
             this.visibleChange.emit(false);
             this.form.reset();
+            window.location.reload();
           }
         })
         return
@@ -103,6 +104,7 @@ export class AddEditTicketComponent {
             this.ticketChange.emit(ticket);
             this.visibleChange.emit(false);
             this.form.reset();
+            window.location.reload();
           }
         })
       }

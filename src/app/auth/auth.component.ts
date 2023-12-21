@@ -4,6 +4,7 @@ import {LoginService} from "./services/login.service";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router, RouterModule} from "@angular/router";
 
+
 @Component({
   selector: 'app-auth',
   standalone: true,
@@ -18,6 +19,8 @@ export class AuthComponent {
     password: ['', [Validators.required]]
   });
 
+  errorLogin: boolean = false;
+
   constructor(
     private authService: LoginService,
     private fb: FormBuilder,
@@ -30,7 +33,7 @@ export class AuthComponent {
     //suscribe the login method
     this.authService.login(username, password).subscribe({
       next: ok => this.router.navigateByUrl('backlog'),
-      error: error => console.log("jaja")
+      error: error => this.errorLogin = true
     });
   }
 

@@ -111,10 +111,11 @@ export class AddEditUserComponent {
       })
       this.userForm.get('role')?.disable()
       return
-    }else{
-      this.userForm.patchValue({
-        role: 2
-      })
+    }
+    else{
+    //   this.userForm.patchValue({
+    //     role: 2
+    //   })
       this.userForm.get('role')?.enable()
     }
   }
@@ -128,12 +129,14 @@ export class AddEditUserComponent {
       })
       this.userForm.get('dependence')?.disable()
       return
-    }else{
+    }
+    else{
       this.userForm.patchValue({
         dependence: 1
       })
       this.userForm.get('dependence')?.enable()
     } 
+
   }
 
   private mappedUserFormFromUser(): UserFullDTO {

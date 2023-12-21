@@ -7,19 +7,27 @@
     </section>
 
     <section class="my-4 w-full">
-      <h2 class="text-center font-bold text-xl w-full mb-6">Hello again!</h2>
+      <h2 class="text-center font-bold text-xl w-full mb-6">Iniciar sesion</h2>
 
       <form class="w-full" [formGroup]="loginForm" (ngSubmit)="onSubmit($event)">
 
         <input class="block w-full mb-4 p-2 rounded-md bg-gray-100 shadow"
                type="text"
                formControlName="username"
-               placeholder="username">
+               placeholder="username"
+               [ngClass]="{'border border-red-500': errorLogin}"
+               >
 
         <input class="block w-full mb-4 p-2 rounded-md bg-gray-100 shadow"
                type="password"
                formControlName="password"
-               placeholder="**********">
+               placeholder="**********"
+               [ngClass]="{'border border-red-500': errorLogin}"
+              >
+        
+        <div class="flex items-center justify-between mb-4 text-red-500 pl-2" *ngIf="errorLogin"> 
+          Usuario o contraseña incorrectos
+        </div>
 
         <button
           class="w-full bg-blue-600 text-white font-semibold text-center p-3 rounded-md transition-colors hover:bg-blue-500"
@@ -27,8 +35,8 @@
         </button>
 
       </form>
-      <a href="#" class="inline-block w-full text-right mt-4 underline"> Don't have account?</a>
     </section>
+  
   </div>
 </section>
 
